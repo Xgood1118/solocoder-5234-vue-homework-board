@@ -14,7 +14,11 @@ app.use(router)
 
 async function initApp() {
   const userStore = useUserStore()
-  await userStore.init()
+  try {
+    await userStore.init()
+  } catch (err) {
+    console.error('应用初始化失败:', err)
+  }
   app.mount('#app')
 }
 

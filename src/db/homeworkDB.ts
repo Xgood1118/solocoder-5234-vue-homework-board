@@ -146,15 +146,19 @@ export async function initMockHomeworks(): Promise<void> {
       await putRecord(STORES.HOMEWORKS, { ...homework, updatedAt: new Date().toISOString() })
     } else if (status === 'submitted') {
       homework.status = 'submitted'
-      homework.startedAt = new Date(assignedAt.getTime() + Math.random() * 24 * 60 * 60 * 1000).toISOString()
-      homework.submittedAt = new Date(homework.startedAt + Math.random() * 24 * 60 * 60 * 1000).toISOString()
+      const startedAtTime = assignedAt.getTime() + Math.random() * 24 * 60 * 60 * 1000
+      homework.startedAt = new Date(startedAtTime).toISOString()
+      homework.submittedAt = new Date(startedAtTime + Math.random() * 24 * 60 * 60 * 1000).toISOString()
       await putRecord(STORES.HOMEWORKS, { ...homework, updatedAt: new Date().toISOString() })
     } else if (status === 'graded') {
       const score = Math.floor(Math.random() * 60) + 40
       homework.status = 'graded'
-      homework.startedAt = new Date(assignedAt.getTime() + Math.random() * 24 * 60 * 60 * 1000).toISOString()
-      homework.submittedAt = new Date(homework.startedAt + Math.random() * 24 * 60 * 60 * 1000).toISOString()
-      homework.gradedAt = new Date(homework.submittedAt + Math.random() * 24 * 60 * 60 * 1000).toISOString()
+      const startedAtTime = assignedAt.getTime() + Math.random() * 24 * 60 * 60 * 1000
+      const submittedAtTime = startedAtTime + Math.random() * 24 * 60 * 60 * 1000
+      const gradedAtTime = submittedAtTime + Math.random() * 24 * 60 * 60 * 1000
+      homework.startedAt = new Date(startedAtTime).toISOString()
+      homework.submittedAt = new Date(submittedAtTime).toISOString()
+      homework.gradedAt = new Date(gradedAtTime).toISOString()
       homework.score = score
       homework.gradedBy = teacher.id
       homework.gradedByName = teacher.name
@@ -165,15 +169,19 @@ export async function initMockHomeworks(): Promise<void> {
       const score = Math.floor(Math.random() * 40) + 30
       const revisionScore = Math.floor(Math.random() * 30) + 60
       homework.status = 'revised'
-      homework.startedAt = new Date(assignedAt.getTime() + Math.random() * 24 * 60 * 60 * 1000).toISOString()
-      homework.submittedAt = new Date(homework.startedAt + Math.random() * 24 * 60 * 60 * 1000).toISOString()
-      homework.gradedAt = new Date(homework.submittedAt + Math.random() * 24 * 60 * 60 * 1000).toISOString()
+      const startedAtTime = assignedAt.getTime() + Math.random() * 24 * 60 * 60 * 1000
+      const submittedAtTime = startedAtTime + Math.random() * 24 * 60 * 60 * 1000
+      const gradedAtTime = submittedAtTime + Math.random() * 24 * 60 * 60 * 1000
+      const revisedAtTime = gradedAtTime + Math.random() * 48 * 60 * 60 * 1000
+      homework.startedAt = new Date(startedAtTime).toISOString()
+      homework.submittedAt = new Date(submittedAtTime).toISOString()
+      homework.gradedAt = new Date(gradedAtTime).toISOString()
       homework.score = score
       homework.gradedBy = teacher.id
       homework.gradedByName = teacher.name
       homework.comment = '需要订正，注意基础概念的理解。'
       homework.needsRevision = true
-      homework.revisedAt = new Date(homework.gradedAt + Math.random() * 48 * 60 * 60 * 1000).toISOString()
+      homework.revisedAt = new Date(revisedAtTime).toISOString()
       homework.revisionScore = revisionScore
       homework.revisionTime = Math.floor(Math.random() * 60) + 20
       await putRecord(STORES.HOMEWORKS, { ...homework, updatedAt: new Date().toISOString() })

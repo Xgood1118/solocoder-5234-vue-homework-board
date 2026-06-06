@@ -20,11 +20,29 @@ export const useUserStore = defineStore('user', () => {
   async function init() {
     if (isInitialized.value) return
 
-    await openDB()
-    await initMockUsers()
-    await initMockHomeworks()
+    try {
+      await openDB()
+    } catch (e) {
+      console.error('打开数据库失败:', e)
+    }
 
-    await loadUsers()
+    try {
+      await initMockUsers()
+    } catch (e) {
+      console.error('初始化用户数据失败:', e)
+    }
+
+    try {
+      await initMockHomeworks()
+    } catch (e) {
+      console.error('初始化作业数据失败:', e)
+    }
+
+    try {
+      await loadUsers()
+    } catch (e) {
+      console.error('加载用户列表失败:', e)
+    }
 
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved) {

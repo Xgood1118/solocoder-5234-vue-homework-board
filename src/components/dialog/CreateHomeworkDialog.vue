@@ -34,17 +34,15 @@ const submitting = ref(false)
 
 const subjects = getAllSubjects()
 
-const allStudents = computed(() => students)
-
 const allSelected = computed(() => {
-  return selectedStudents.value.length === allStudents.value.length
+  return selectedStudents.value.length === students.value.length
 })
 
 function toggleSelectAll() {
   if (allSelected.value) {
     selectedStudents.value = []
   } else {
-    selectedStudents.value = allStudents.value.map((s) => s.id)
+    selectedStudents.value = students.value.map((s) => s.id)
   }
 }
 
@@ -70,7 +68,7 @@ async function handleSubmit() {
 
   submitting.value = true
   try {
-    const studentMap = new Map(allStudents.value.map((s) => [s.id, s]))
+    const studentMap = new Map(students.value.map((s) => [s.id, s]))
 
     for (const studentId of selectedStudents.value) {
       const student = studentMap.get(studentId)
@@ -200,7 +198,7 @@ function resetForm() {
               </div>
               <div class="border border-gray-200 rounded-lg p-3 max-h-40 overflow-y-auto grid grid-cols-3 gap-2">
                 <label
-                  v-for="student in allStudents"
+                  v-for="student in students"
                   :key="student.id"
                   class="flex items-center gap-2 text-sm cursor-pointer p-2 rounded hover:bg-gray-50 transition-colors"
                 >

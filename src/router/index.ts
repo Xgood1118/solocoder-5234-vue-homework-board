@@ -1,10 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import LoginView from '@/pages/LoginView.vue'
 import TeacherBoardView from '@/pages/TeacherBoardView.vue'
 import StudentBoardView from '@/pages/StudentBoardView.vue'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     redirect: '/login',
