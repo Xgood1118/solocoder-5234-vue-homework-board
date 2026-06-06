@@ -1,0 +1,4 @@
+我打开首页是一片白屏，F12 控制台报 Invalid time value，看不到登录页也看不到看板，没法切学生/老师身份。
+看堆栈定位到 src/db/homeworkDB.ts 的 initMockHomeworks 在塞演示数据时炸了，导致 Vue 根本没挂载，整个 SPA 起不来。
+顺便 npm run build 也跑不过，vue-tsc 报了一串类型错，主要在 CreateHomeworkDialog.vue 和 router/index.ts。
+修一下。
